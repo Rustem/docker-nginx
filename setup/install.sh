@@ -19,7 +19,7 @@ download_and_extract() {
 }
 
 NGINX_DOWNLOAD_URL="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
-NGX_UPLOAD_URL="https://github.com/vkholodkov/nginx-upload-module/archive/2.2.0.tar.gz"
+NGX_UPLOAD_URL="https://github.com/vkholodkov/nginx-upload-module/archive/2.2.tar.gz"
 
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make libc6-dev libpcre++-dev libssl-dev libxslt-dev libgd2-xpm-dev libgeoip-dev
@@ -41,7 +41,8 @@ cd ${NGINX_SETUP_DIR}/nginx
   --with-http_stub_status_module --with-http_realip_module \
   --with-http_addition_module --with-http_dav_module --with-http_geoip_module \
   --with-http_gzip_static_module --with-http_image_filter_module \
-  --add-module=${NGINX_SETUP_DIR}/nginx_upload_module \
+  --add-module=${NGINX_SETUP_DIR}/nginx_upload_module
+
 make && make install
 
 
@@ -60,11 +61,6 @@ server {
     try_files \$uri \$uri/ =404;
   }
 
-  location /stat {
-    rtmp_stat all;
-    rtmp_stat_stylesheet stat.xsl;
-  }
-
   location /stat.xsl {
     root html;
   }
@@ -81,6 +77,6 @@ server {
 EOF
 
 # cleanup
-apt-get purge -y --auto-remove gcc g++ make libc6-dev libpcre++-dev libssl-dev libxslt-dev libgd2-xpm-dev libgeoip-dev
-rm -rf ${NGINX_SETUP_DIR}/{nginx,nginx_upload_module}
-rm -rf /var/lib/apt/lists/*
+#apt-get purge -y --auto-remove gcc g++ make libc6-dev libpcre++-dev libssl-dev libxslt-dev libgd2-xpm-dev libgeoip-dev
+#rm -rf ${NGINX_SETUP_DIR}/{nginx,nginx_upload_module}
+#rm -rf /var/lib/apt/lists/*

@@ -1,7 +1,8 @@
 nginx:
-  image: anguis/nginx:1.9.6
+  image: anguis/nginx:1.9.4
   ports:
     - "80:80"
   volumes:
-    - /srv/docker/nginx/sites-enabled:/etc/nginx/sites-enabled
+    - /Users/rustem/projects/docker-nginx/sites-enabled:/etc/nginx/sites-enabled
+    - /Users/rustem/projects/docker-nginx/uploads:/uploads
   restart: always
