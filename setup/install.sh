@@ -19,17 +19,13 @@ download_and_extract() {
 }
 
 NGINX_DOWNLOAD_URL="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
-NGINX_RTMP_MODULE_DOWNLOAD_URL="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_VERSION}.tar.gz"
-NGX_PAGESPEED_DOWNLOAD_URL="https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}-beta.tar.gz"
-PSOL_DOWNLOAD_URL="https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz"
+NGX_UPLOAD_URL="https://github.com/vkholodkov/nginx-upload-module/archive/2.2.0.tar.gz"
 
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y gcc g++ make libc6-dev libpcre++-dev libssl-dev libxslt-dev libgd2-xpm-dev libgeoip-dev
 
 download_and_extract "${NGINX_DOWNLOAD_URL}" "${NGINX_SETUP_DIR}/nginx"
-download_and_extract "${NGINX_RTMP_MODULE_DOWNLOAD_URL}" "${NGINX_SETUP_DIR}/nginx-rtmp-module"
-download_and_extract "${NGX_PAGESPEED_DOWNLOAD_URL}" "${NGINX_SETUP_DIR}/ngx_pagespeed"
-download_and_extract "${PSOL_DOWNLOAD_URL}" "${NGINX_SETUP_DIR}/ngx_pagespeed/psol"
+download_and_extract "${NGX_UPLOAD_URL}" "${NGINX_SETUP_DIR}/nginx_upload_module"
 
 alias make="make -j$(nproc)"
 cd ${NGINX_SETUP_DIR}/nginx
@@ -45,14 +41,9 @@ cd ${NGINX_SETUP_DIR}/nginx
   --with-http_stub_status_module --with-http_realip_module \
   --with-http_addition_module --with-http_dav_module --with-http_geoip_module \
   --with-http_gzip_static_module --with-http_image_filter_module \
-  --with-http_spdy_module --with-http_sub_module --with-http_xslt_module \
-  --with-mail --with-mail_ssl_module \
-  --add-module=${NGINX_SETUP_DIR}/nginx-rtmp-module \
-  --add-module=${NGINX_SETUP_DIR}/ngx_pagespeed
+  --add-module=${NGINX_SETUP_DIR}/nginx_upload_module \
 make && make install
 
-# copy rtmp stats template
-cp ${NGINX_SETUP_DIR}/nginx-rtmp-module/stat.xsl /usr/share/nginx/html/
 
 # create default configuration
 mkdir -p /etc/nginx/sites-enabled
@@ -91,5 +82,5 @@ EOF
 
 # cleanup
 apt-get purge -y --auto-remove gcc g++ make libc6-dev libpcre++-dev libssl-dev libxslt-dev libgd2-xpm-dev libgeoip-dev
-rm -rf ${NGINX_SETUP_DIR}/{nginx,nginx-rtmp-module,ngx_pagespeed}
+rm -rf ${NGINX_SETUP_DIR}/{nginx,nginx_upload_module}
 rm -rf /var/lib/apt/lists/*

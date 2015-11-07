@@ -17,7 +17,7 @@
 
 # Introduction
 
-`Dockerfile` to create a [Docker](https://www.docker.com/) container image for [NGINX](http://nginx.org/en/) with [ngx_pagespeed](https://github.com/pagespeed/ngx_pagespeed) and [nginx-rtmp-module](https://github.com/arut/nginx-rtmp-module) module support.
+`Dockerfile` to create a [Docker](https://www.docker.com/) container image for [NGINX](http://nginx.org/en/) with [nginx_upload_module](https://github.com/vkholodkov/nginx-upload-module/tree/2.2.0) module support.
 
 NGINX is a web server with a strong focus on high concurrency, performance and low memory usage. It can also act as a reverse proxy server for HTTP, HTTPS, SMTP, POP3, and IMAP protocols, as well as a load balancer and an HTTP cache.
 
@@ -48,13 +48,13 @@ If the above recommendations do not help then [report your issue](../../issues/n
 Automated builds of the image are available on [Quay.io](https://quay.io/repository/sameersbn/nginx) and is the recommended method of installation.
 
 ```bash
-docker pull quay.io/sameersbn/nginx:1.8.0-8
+docker pull anguis/nginx:1.9.6
 ```
 
 Alternatively you can build the image yourself.
 
 ```bash
-git clone https://github.com/sameersbn/docker-nginx.git
+git clone https://github.com/Rustem/docker-nginx.git
 cd docker-nginx
 docker build --tag $USER/nginx .
 ```
@@ -66,7 +66,7 @@ Start NGINX using:
 ```bash
 docker run --name nginx -d --restart=always \
   --publish 80:80 \
-  quay.io/sameersbn/nginx:1.8.0-8
+  anguis/nginx:1.9.6
 ```
 
 *Alternatively, you can use the sample [docker-compose.yml](docker-compose.yml) file to start the container using [Docker Compose](https://docs.docker.com/compose/)*
