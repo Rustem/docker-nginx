@@ -1,5 +1,6 @@
 nginx:
   image: anguis/nginx:1.9.4
+  entrypoint: /sbin/entrypoint.sh
   ports:
     - "80:80"
   volumes:
