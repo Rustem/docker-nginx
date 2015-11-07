@@ -1,5 +1,5 @@
 nginx:
-  image: quay.io/sameersbn/nginx:1.8.0-8
+  image: anguis/nginx:1.9.6
   ports:
     - "80:80"
   volumes:
