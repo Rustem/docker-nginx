@@ -6,4 +6,5 @@ nginx:
   volumes:
     - /Users/rustem/projects/docker-nginx/sites-enabled:/etc/nginx/sites-enabled
     - /Users/rustem/projects/docker-nginx/uploads:/uploads
+    - 
   restart: always
