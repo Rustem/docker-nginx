@@ -41,6 +41,7 @@ cd ${NGINX_SETUP_DIR}/nginx
   --with-http_stub_status_module --with-http_realip_module \
   --with-http_addition_module --with-http_dav_module --with-http_geoip_module \
   --with-http_gzip_static_module --with-http_image_filter_module \
+  --with-http_auth_request_module \
   --add-module=${NGINX_SETUP_DIR}/nginx_upload_module
 
 make && make install
